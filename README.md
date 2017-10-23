@@ -1,6 +1,5 @@
 # AVADA
 
-
 [![Maven Central](https://img.shields.io/maven-central/v/com.codepoetics/avada.svg)](http://search.maven.org/#search%7Cga%7C1%7Cavada)
 [![Build Status](https://travis-ci.org/poetix/avada.svg?branch=master)](https://travis-ci.org/poetix/avada)
 
