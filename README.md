@@ -1,5 +1,9 @@
 # AVADA
 
+
+[![Maven Central](https://img.shields.io/maven-central/v/com.codepoetics/avada.svg)](http://search.maven.org/#search%7Cga%7C1%7Cavada)
+[![Build Status](https://travis-ci.org/poetix/avada.svg?branch=master)](https://travis-ci.org/poetix/avada)
+
 A Java library that works with [Hamcrest](http://hamcrest.org/JavaHamcrest/), for making typesafe assertions about the properties of objects.
 
 Created for the slightly unusual case where we want to write Java 8 but convert to JDK7 bytecode using [Retrolambda](https://github.com/orfjackal/retrolambda). In other words, this is intended to be used with a language that supports lambdas and method references, but is written in a language that doesn't.
