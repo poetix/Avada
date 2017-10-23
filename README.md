@@ -31,7 +31,8 @@ assertThat(person, AnObject.with(
 The lambda supplied as a "getter" doesn't have to be a method reference - it can reflect any property of the object we want to make assertions about:
 
 ```java
-ObjectProperty<Person, Integer> numberOfSheds = ObjectProperty.of("number of sheds", person -> person.getSheds().size());
+ObjectProperty<Person, Integer> numberOfSheds = ObjectProperty.of("number of sheds",
+  person -> person.getSheds().size());
 
 assertThat(person, AnObject.with(numberOfSheds.of(2)));
 ```
