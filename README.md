@@ -1,8 +1,8 @@
 # AVADA
 
-A "magic matchers" library that works with Hamcrest, created for the slightly unusual case where we want to write Java 8 but convert to JDK7 bytecode using Retrolambda.
+A Java library that works with [Hamcrest](http://hamcrest.org/JavaHamcrest/), for making typesafe assertions about the properties of objects.
 
-Accordingly, this is intended to be used with a language that supports method references, but is written in a language that doesn't.
+Created for the slightly unusual case where we want to write Java 8 but convert to JDK7 bytecode using [Retrolambda](https://github.com/orfjackal/retrolambda). In other words, this is intended to be used with a language that supports lambdas and method references, but is written in a language that doesn't.
 
 Assuming that's your situation, here's how it works:
 
