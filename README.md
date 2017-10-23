@@ -63,3 +63,4 @@ assertThat(person, oldArthur);   // Will match Arthur Putey aged 40+
 assertThat(person, youngArthur); // Will match Arthur Putey in the prime of youth
 assertThat(person, baseSpec);    // Will match Arthur Putey irrespective of age
 ```
+
