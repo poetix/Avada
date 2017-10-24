@@ -64,7 +64,7 @@ assertThat(person, youngArthur); // Will match Arthur Putey in the prime of yout
 assertThat(person, baseSpec);    // Will match Arthur Putey irrespective of age
 ```
 
-Finally, we have the `AnIterable` matcher for extracting and matching properties of objects in `Iterable`s, plus some AspectJ-envy:
+Finally, we have the `AnIterable` matcher for extracting and matching properties of objects in `Iterable`s, plus some AssertJ-envy:
 
 ```java
 List<Person> people = Arrays.asList(
