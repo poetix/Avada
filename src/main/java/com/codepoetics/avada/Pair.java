@@ -2,7 +2,6 @@ package com.codepoetics.avada;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Pair<A, B> {
 
@@ -52,7 +51,7 @@ public class Pair<A, B> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(first, second);
+    return asList().hashCode();
   }
 
   @Override

@@ -67,30 +67,40 @@ public class PairMatcher<A, B> extends TypeSafeDiagnosingMatcher<Pair<A, B>> {
 
     boolean matches = true;
 
-    Indentation.indent();
+    boolean first = true;
+    mismatch.appendText("(");
     for (int i = 0; i < items.size(); i++) {
+      if (first) {
+        first = false;
+      } else {
+        mismatch.appendText(",");
+      }
       Matcher<?> matcher = matchers.get(i);
       Object item = items.get(i);
       if (matcher.matches(item)) {
+        mismatch.appendText("\u2713");
         continue;
       }
       matches = false;
-      Indentation.newLine(mismatch).appendText("Item " + i + ": ");
       matcher.describeMismatch(item, mismatch);
     }
-    Indentation.outdent();
+    mismatch.appendText(")");
 
     return matches;
   }
 
   @Override
   public void describeTo(Description description) {
-    List<Matcher<?>> matchers = asList();
-    Indentation.indent();
-    for (int i = 0; i < matchers.size(); i++) {
-      Indentation.newLine(description).appendText("Item " + i + ": ");
-      matchers.get(i).describeTo(description);
+    description.appendText("(");
+    boolean first = true;
+    for (Matcher<?> matcher : asList()) {
+      if (first) {
+        first = false;
+      } else {
+        description.appendText(",");
+      }
+      description.appendDescriptionOf(matcher);
     }
-    Indentation.outdent();
+    description.appendText(")");
   }
 }

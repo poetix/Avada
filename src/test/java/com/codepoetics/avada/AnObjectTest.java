@@ -1,7 +1,6 @@
 package com.codepoetics.avada;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.StringDescription;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -59,13 +58,13 @@ public class AnObjectTest {
         outerValue.of("The outer value"),
         inner.matching(AnObject.with(innerValue.of("The inner value, only not"))));
 
-    assertThat(descriptionOf(matcher), equalTo(
+    assertThat(Utils.descriptionOf(matcher), equalTo(
         "An object with:\n" +
             "\touterValue: \"The outer value\"\n" +
             "\tinner: An object with:\n" +
               "\t\tinnerValue: \"The inner value, only not\""));
 
-    assertThat(mismatchDescriptionOf(matcher, outer), equalTo(
+    assertThat(Utils.mismatchDescriptionOf(matcher, outer), equalTo(
             "\n\tinner: \n" +
             "\t\tinnerValue: was \"The inner value\""
     ));
@@ -82,26 +81,26 @@ public class AnObjectTest {
         outerValue.of("A different outer value"),
         inner.matching(AnObject.with(innerValue.of("A different inner value"))));
 
-    assertThat(descriptionOf(baseSpec), equalTo(
+    assertThat(Utils.descriptionOf(baseSpec), equalTo(
         "An object with:\n" +
             "\touterValue: \"The outer value\""
     ));
 
-    assertThat(descriptionOf(inheritorA), equalTo(
+    assertThat(Utils.descriptionOf(inheritorA), equalTo(
         "An object with:\n" +
             "\touterValue: \"The outer value\"\n" +
             "\tinner: An object with:\n" +
             "\t\tinnerValue: \"The inner value\""
     ));
 
-    assertThat(descriptionOf(inheritorB), equalTo(
+    assertThat(Utils.descriptionOf(inheritorB), equalTo(
         "An object with:\n" +
             "\touterValue: \"The outer value\"\n" +
             "\tinner: An object with:\n" +
             "\t\tinnerValue: \"A different inner value\""
     ));
 
-    assertThat(descriptionOf(inheritorC), equalTo(
+    assertThat(Utils.descriptionOf(inheritorC), equalTo(
         "An object with:\n" +
             "\touterValue: \"A different outer value\"\n" +
             "\tinner: An object with:\n" +
@@ -251,15 +250,4 @@ public class AnObjectTest {
     assertThat(youngPerson, baseSpec);    // Will match Arthur Putey irrespective of age
   }
 
-  private String descriptionOf(Matcher<?> matcher) {
-    StringDescription description = new StringDescription();
-    matcher.describeTo(description);
-    return description.toString();
-  }
-
-  private <T> String mismatchDescriptionOf(Matcher<? super T> matcher, T value) {
-    StringDescription description = new StringDescription();
-    matcher.describeMismatch(value, description);
-    return description.toString();
-  }
 }
