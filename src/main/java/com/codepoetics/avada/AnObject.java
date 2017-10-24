@@ -29,18 +29,18 @@ public final class AnObject<T> extends TypeSafeDiagnosingMatcher<T> {
     return map;
   }
 
-  private final Map<String, Expectation<T>> expectations;;
+  private final Map<String, Expectation<T>> expectations;
 
   private AnObject(Map<String, Expectation<T>> expectations) {
     this.expectations = expectations;
   }
 
   public <V> AnObject<T> and(String name, Getter<T, V> getter, V expected) {
-    return with(ObjectProperty.of(name, getter).of(expected));
+    return and(ObjectProperty.of(name, getter).of(expected));
   }
 
   public <V> AnObject<T> and(String name, Getter<T, V> getter, Matcher<? super V> matcher) {
-    return with(ObjectProperty.of(name, getter).matching(matcher));
+    return and(ObjectProperty.of(name, getter).matching(matcher));
   }
 
   @SafeVarargs

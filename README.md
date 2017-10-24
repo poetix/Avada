@@ -52,7 +52,7 @@ ObjectProperty<Person, String> addressPostcode = address.then(postcode);
 assertThat(person, addressPostcode.of("VB6 5UX"));
 ```
 
-Finally, you can extend an existing matcher with further properties, getting a new matcher that leaves the original unchanged:
+Further, you can extend an existing matcher with further properties, getting a new matcher that leaves the original unchanged:
 
 ```java
 AnObject<Person> baseSpec = AnObject.with(name.of("Arthur Putey"));
@@ -62,5 +62,27 @@ AnObject<Person> youngArthur = baseSpec.and(age.matching(lessThan(40)));
 assertThat(person, oldArthur);   // Will match Arthur Putey aged 40+
 assertThat(person, youngArthur); // Will match Arthur Putey in the prime of youth
 assertThat(person, baseSpec);    // Will match Arthur Putey irrespective of age
+```
+
+Finally, we have the `AnIterable` matcher for extracting and matching properties of objects in `Iterable`s, plus some AspectJ-envy:
+
+```java
+List<Person> people = Arrays.asList(
+    new Person("Arthur Putey", 42, new Address("VB6 5UX")),
+    new Person("Arthur 'Two Sheds' Jackson", 30, new Address("RA8 81T"))
+);
+
+assertThat(people, AnIterable.withItems(name, contains("Arthur Putey", "Arthur 'Two Sheds' Jackson")));
+
+ObjectProperty<Person, Pair<String, Integer>> nameAndAge = name.pairWith(age);
+assertThat(people.get(0), nameAndAge.matching(tuple("Arthur Putey", 42)));
+
+assertThat(people, AnIterable.withItems(
+    tupleWith(name, age, addressPostcode),
+    contains(
+      tuple("Arthur Putey", 42, "VB6 5UX"),
+      tuple(containsString("Two Sheds"), lessThan(40), equalTo("RA8 81T"))
+    )
+));
 ```
 

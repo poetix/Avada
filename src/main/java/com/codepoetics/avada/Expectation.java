@@ -4,6 +4,9 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public final class Expectation<T> extends TypeSafeDiagnosingMatcher<T> {
 
   private final ObjectProperty<T, ?> property;
@@ -48,4 +51,5 @@ public final class Expectation<T> extends TypeSafeDiagnosingMatcher<T> {
   public void describeTo(Description description) {
     AnObject.with(this).describeTo(description);
   }
+
 }

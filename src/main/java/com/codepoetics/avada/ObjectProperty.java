@@ -3,6 +3,9 @@ package com.codepoetics.avada;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public final class ObjectProperty<T, V> {
 
   public static <T, V> ObjectProperty<T, V> of(String name, Getter<T, V> getter) {
@@ -41,4 +44,14 @@ public final class ObjectProperty<T, V> {
       }
     });
   }
+
+  <V2> ObjectProperty<T, Pair<V, V2>> pairWith(final ObjectProperty<T, V2> second) {
+    return new ObjectProperty<T, Pair<V, V2>>(String.format("(%s, %s)", name, second.name), new Getter<T, Pair<V, V2>>() {
+      @Override
+      public Pair<V, V2> get(T target) {
+        return Pair.of(getter.get(target), second.get(target));
+      }
+    });
+  }
+
 }
