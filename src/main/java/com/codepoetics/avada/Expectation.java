@@ -44,12 +44,12 @@ public final class Expectation<T> extends TypeSafeDiagnosingMatcher<T> {
 
   @Override
   protected boolean matchesSafely(T t, Description description) {
-    return AnObject.with(this).matchesSafely(t, description);
+    return AnObject.having(this).matchesSafely(t, description);
   }
 
   @Override
   public void describeTo(Description description) {
-    AnObject.with(this).describeTo(description);
+    AnObject.having(this).describeTo(description);
   }
 
 }

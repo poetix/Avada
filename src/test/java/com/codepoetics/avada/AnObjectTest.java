@@ -54,9 +54,9 @@ public class AnObjectTest {
   public void indentsDescriptions() {
     Outer outer = new Outer("The outer value", new Inner("The inner value"));
 
-    Matcher<Outer> matcher = AnObject.with(
+    Matcher<Outer> matcher = AnObject.having(
         outerValue.of("The outer value"),
-        inner.matching(AnObject.with(innerValue.of("The inner value, only not"))));
+        inner.matching(AnObject.having(innerValue.of("The inner value, only not"))));
 
     assertThat(Utils.descriptionOf(matcher), equalTo(
         "An object with:\n" +
@@ -72,14 +72,14 @@ public class AnObjectTest {
 
   @Test
   public void inheritanceAndOverriding() {
-    AnObject<Outer> baseSpec = AnObject.with(outerValue.of("The outer value"));
+    AnObject<Outer> baseSpec = AnObject.having(outerValue.of("The outer value"));
 
-    AnObject<Outer> inheritorA = baseSpec.and(inner.matching(AnObject.with(innerValue.of("The inner value"))));
-    AnObject<Outer> inheritorB = baseSpec.and(
-        inner.matching(AnObject.with(innerValue.of("A different inner value"))));
-    AnObject<Outer> inheritorC = baseSpec.and(
+    AnObject<Outer> inheritorA = baseSpec.with(inner.matching(innerValue.of("The inner value")));
+    AnObject<Outer> inheritorB = baseSpec.with(
+        inner.matching(AnObject.having(innerValue.of("A different inner value"))));
+    AnObject<Outer> inheritorC = baseSpec.with(
         outerValue.of("A different outer value"),
-        inner.matching(AnObject.with(innerValue.of("A different inner value"))));
+        inner.matching(innerValue.of("A different inner value")));
 
     assertThat(Utils.descriptionOf(baseSpec), equalTo(
         "An object with:\n" +
@@ -193,8 +193,9 @@ public class AnObjectTest {
 
     assertThat(
         person,
-        AnObject.with("name", nameGetter, "Arthur Putey")
-            .and("age", ageGetter, greaterThanOrEqualTo(42)));
+        AnObject.assignableTo(Person.class)
+            .with("name", nameGetter, "Arthur Putey")
+            .with("age", ageGetter, greaterThanOrEqualTo(42)));
   }
 
   @Test
@@ -204,7 +205,7 @@ public class AnObjectTest {
     ObjectProperty<Person, String> name = ObjectProperty.of("name", nameGetter);
     ObjectProperty<Person, Integer> age = ObjectProperty.of("age", ageGetter);
 
-    assertThat(person, AnObject.with(
+    assertThat(person, AnObject.having(
         name.of("Arthur Putey"),
         age.matching(greaterThanOrEqualTo(42))));
   }
@@ -217,7 +218,7 @@ public class AnObjectTest {
 
     ObjectProperty<Person, Integer> numberOfSheds = ObjectProperty.of("number of sheds", shedCountGetter);
 
-    assertThat(person, AnObject.with(numberOfSheds.of(2)));
+    assertThat(person, AnObject.having(numberOfSheds.of(2)));
     assertThat(person, numberOfSheds.of(2));
   }
 
@@ -237,9 +238,9 @@ public class AnObjectTest {
     ObjectProperty<Person, String> name = ObjectProperty.of("name", nameGetter);
     ObjectProperty<Person, Integer> age = ObjectProperty.of("age", ageGetter);
 
-    AnObject<Person> baseSpec = AnObject.with(name.of("Arthur Putey"));
-    AnObject<Person> oldArthur = baseSpec.and(age.matching(greaterThanOrEqualTo(40)));
-    AnObject<Person> youngArthur = baseSpec.and(age.matching(lessThan(40)));
+    AnObject<Person> baseSpec = AnObject.having(name.of("Arthur Putey"));
+    AnObject<Person> oldArthur = baseSpec.with(age.matching(greaterThanOrEqualTo(40)));
+    AnObject<Person> youngArthur = baseSpec.with(age.matching(lessThan(40)));
 
     Person oldPerson = new Person("Arthur Putey", 42, new Address("VB6 5UX"));
     Person youngPerson = new Person("Arthur Putey", 39, new Address("VB6 5UX"));
