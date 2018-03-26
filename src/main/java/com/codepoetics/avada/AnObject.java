@@ -65,7 +65,7 @@ public final class AnObject<T> extends TypeSafeDiagnosingMatcher<T> {
     boolean matched = true;
     Indentation.indent();
     for (Expectation<T> expectation : expectations.values()) {
-      matched = matched && expectation.test(item, mismatch);
+      matched = expectation.test(item, mismatch) && matched;
     }
     Indentation.outdent();
     return matched;
